@@ -20,11 +20,33 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Engine.cpp \
-    Modules/Platform/ViewportWidget.cpp
+    Modules/Platform/ViewportWidget.cpp \
+    Modules/ECS/BaseComponentInstance.cpp \
+    Modules/ECS/GameObject.cpp \
+    Modules/ECS/GameObjectsSequentialIterator.cpp \
+    Modules/ECS/GameObjectsSequentialView.cpp \
+    Modules/ECS/GameSystem.cpp \
+    Modules/ECS/GameWorld.cpp
 
 HEADERS += \
     Engine.h \
-    Modules/Platform/ViewportWidget.h
+    Modules/Platform/ViewportWidget.h \
+    Modules/ECS/BaseComponentInstance.h \
+    Modules/ECS/BaseEventsListener.h \
+    Modules/ECS/ComponentHandle.h \
+    Modules/ECS/ComponentInstance.h \
+    Modules/ECS/ECS.h \
+    Modules/ECS/EventsListener.h \
+    Modules/ECS/GameObject.h \
+    Modules/ECS/GameObjectImpl.h \
+    Modules/ECS/GameObjectsComponentsIterator.h \
+    Modules/ECS/GameObjectsComponentsIteratorImpl.h \
+    Modules/ECS/GameObjectsComponentsView.h \
+    Modules/ECS/GameObjectsComponentsViewImpl.h \
+    Modules/ECS/GameObjectsSequentialIterator.h \
+    Modules/ECS/GameObjectsSequantialView.h \
+    Modules/ECS/GameSystem.h \
+    Modules/ECS/GameWorld.h
 
 # Default rules for deployment.
 unix {
