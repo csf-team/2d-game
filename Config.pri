@@ -1,0 +1,3 @@
+APP_DIR = $$PWD
+
+APP_BIN_DIR = $$APP_DIR/bin
