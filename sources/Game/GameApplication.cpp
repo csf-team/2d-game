@@ -1,4 +1,5 @@
 #include "GameApplication.h"
+#include <Engine/Modules/ECS/ECS.h>
 
 #include <QDebug>
 
