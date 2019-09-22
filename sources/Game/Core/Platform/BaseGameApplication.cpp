@@ -1,15 +1,19 @@
 #include "BaseGameApplication.h"
 
+#include <QMessageLogger>
+
 BaseGameApplication::BaseGameApplication(int argc, char* argv[])
     : m_qtApp(argc, argv),
       m_mainWindow(nullptr),
-      m_gameLoopTimer(nullptr)
+      m_gameLoopTimer(nullptr),
+      m_glDebugLogger(nullptr)
 {
     QSurfaceFormat format;
     format.setDepthBufferSize(24);
     format.setStencilBufferSize(8);
     format.setVersion(4, 5);
     format.setProfile(QSurfaceFormat::CoreProfile);
+    format.setOption(QSurfaceFormat::DebugContext);
 
     QSurfaceFormat::setDefaultFormat(format);
 
@@ -21,16 +25,15 @@ BaseGameApplication::BaseGameApplication(int argc, char* argv[])
     });
 
     QObject::connect(m_mainWindow, &MainWindow::close, [=]() {
-        this->m_gameLoopTimer->stop();
-        this->shutdown();
+        this->performShutdown();
     });
 
     QObject::connect(m_mainWindow->getViewportWidget(), &ViewportWidget::initialize, [=]() {
-        this->initialize();
+        this->performInitialize();
     });
 
     QObject::connect(m_mainWindow->getViewportWidget(), &ViewportWidget::render, [=]() {
-        this->render();
+        this->performRender();
     });
 }
 
@@ -41,8 +44,10 @@ BaseGameApplication::~BaseGameApplication()
 
 int BaseGameApplication::execute()
 {
-    m_mainWindow->show();
     m_gameLoopTimer->start(30);
+
+    m_mainWindow->resize(640, 480);
+    m_mainWindow->show();
 
     m_updateTimer.start();
 
@@ -61,7 +66,7 @@ void BaseGameApplication::shutdown()
 
 void BaseGameApplication::update(float delta)
 {
-    m_mainWindow->getViewportWidget()->makeCurrent();
+
 }
 
 void BaseGameApplication::render()
@@ -82,9 +87,34 @@ void BaseGameApplication::onTimerTick()
     m_mainWindow->getViewportWidget()->update();
 }
 
+void BaseGameApplication::performInitialize()
+{
+    m_glDebugLogger = new QOpenGLDebugLogger(m_mainWindow);
+    m_glDebugLogger->initialize();
+
+    QObject::connect(m_glDebugLogger, &QOpenGLDebugLogger::messageLogged, [=](const QOpenGLDebugMessage &debugMessage) {
+        qDebug() << debugMessage;
+    });
+
+    m_glDebugLogger->startLogging();
+
+    initialize();
+}
+
+void BaseGameApplication::performShutdown()
+{
+    this->m_gameLoopTimer->stop();
+    shutdown();
+}
+
 void BaseGameApplication::performUpdate(float delta)
 {
     m_mainWindow->getViewportWidget()->makeCurrent();
     update(delta);
     m_mainWindow->getViewportWidget()->doneCurrent();
+}
+
+void BaseGameApplication::performRender()
+{
+    render();
 }

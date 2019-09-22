@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QTimer>
 #include <QElapsedTimer>
+#include <QOpenGLDebugLogger>
 
 #include "MainWindow.h"
 
@@ -25,7 +26,12 @@ protected:
 
 private:
     void onTimerTick();
+
+    void performInitialize();
+    void performShutdown();
+
     void performUpdate(float delta);
+    void performRender();
 
 private:
     QApplication m_qtApp;
@@ -34,5 +40,7 @@ private:
     QTimer* m_gameLoopTimer;
 
     QElapsedTimer m_updateTimer;
+
+    QOpenGLDebugLogger* m_glDebugLogger;
 };
 
