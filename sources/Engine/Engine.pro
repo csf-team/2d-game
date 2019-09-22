@@ -20,6 +20,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Engine.cpp \
+    Modules/Graphics/GraphicsSystem.cpp \
     Modules/Platform/ViewportWidget.cpp \
     Modules/ECS/BaseComponentInstance.cpp \
     Modules/ECS/GameObject.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
 
 HEADERS += \
     Engine.h \
+    Modules/Graphics/GraphicsSystem.h \
     Modules/Platform/ViewportWidget.h \
     Modules/ECS/BaseComponentInstance.h \
     Modules/ECS/BaseEventsListener.h \

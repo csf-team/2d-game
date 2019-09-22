@@ -9,9 +9,15 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
 
     ViewportWidget* getViewportWidget() const;
+
+private:
+    void closeEvent(QCloseEvent *event) override;
+
+signals:
+    void close();
 
 private:
     ViewportWidget* m_viewportWidget;

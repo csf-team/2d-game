@@ -4,6 +4,10 @@ ViewportWidget::ViewportWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 
 {
+}
+
+ViewportWidget::~ViewportWidget()
+{
 
 }
 

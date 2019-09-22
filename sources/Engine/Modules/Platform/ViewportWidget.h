@@ -9,6 +9,7 @@ class ViewportWidget : public QOpenGLWidget, public QOpenGLFunctions
     Q_OBJECT
 public:
     ViewportWidget(QWidget *parent);
+    ~ViewportWidget() override;
 
 protected:
     void initializeGL() override;

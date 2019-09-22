@@ -1,5 +1,7 @@
 #include "MainWindow.h"
 
+#include <QCloseEvent>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -17,3 +19,8 @@ ViewportWidget* MainWindow::getViewportWidget() const
     return m_viewportWidget;
 }
 
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    emit close();
+    event->accept();
+}

@@ -14,11 +14,18 @@ public:
 
     virtual int execute();
 
+    virtual void initialize();
+    virtual void shutdown();
+
     virtual void update(float delta);
     virtual void render();
 
+protected:
+    MainWindow* getMainWindow() const;
+
 private:
     void onTimerTick();
+    void performUpdate(float delta);
 
 private:
     QApplication m_qtApp;
