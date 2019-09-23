@@ -3,9 +3,9 @@
 #include "GameWorld.h"
 
 GameObjectsSequentialIterator::GameObjectsSequentialIterator(GameWorld * world, size_t gameObjectIndex, bool isEnd)
-	: m_gameWorld(world),
-	m_gameObjectIndex(gameObjectIndex),
-	m_isEnd(isEnd)
+    : m_gameObjectIndex(gameObjectIndex),
+    m_isEnd(isEnd),
+    m_gameWorld(world)
 {
 }
 

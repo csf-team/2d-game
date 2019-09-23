@@ -46,9 +46,14 @@ HEADERS += \
     Modules/ECS/GameObjectsComponentsView.h \
     Modules/ECS/GameObjectsComponentsViewImpl.h \
     Modules/ECS/GameObjectsSequentialIterator.h \
-    Modules/ECS/GameObjectsSequantialView.h \
+    Modules/ECS/GameObjectsSequentialView.h \
     Modules/ECS/GameSystem.h \
-    Modules/ECS/GameWorld.h
+    Modules/ECS/GameWorld.h \
+    Utility/helpers.h
+
+QMAKE_CXXFLAGS += -include $$PWD/Utility/helpers.h
+QMAKE_CXXFLAGS += -Wall
+QMAKE_CXXFLAGS += -Werror
 
 # Default rules for deployment.
 unix {

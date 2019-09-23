@@ -66,7 +66,7 @@ void BaseGameApplication::shutdown()
 
 void BaseGameApplication::update(float delta)
 {
-
+    ARG_UNUSED(delta);
 }
 
 void BaseGameApplication::render()

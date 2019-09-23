@@ -18,7 +18,7 @@ public:
 	 * \param gameWorld the game world pointer
 	 * \param delta delta time
 	 */
-	virtual void update(GameWorld* gameWorld, float delta);
+    virtual void update(GameWorld* gameWorld, float delta);
 
 	/*!
 	 * \brief Renders the game system data

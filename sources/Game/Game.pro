@@ -28,6 +28,10 @@ HEADERS += \
     Core/Platform/MainWindow.h \
     GameApplication.h
 
+QMAKE_CXXFLAGS += -include $$PWD/../Engine/Utility/helpers.h
+QMAKE_CXXFLAGS += -Wall
+QMAKE_CXXFLAGS += -Werror
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

@@ -11,8 +11,8 @@ GameWorld::~GameWorld()
 		gameSystem->unconfigure(this);
 
 	for (GameObject* object : m_gameObjects) {
-		for (auto const&[componentTypeId, componentInstance] : object->m_components)
-			delete componentInstance;
+        for (auto& it : object->m_components)
+            delete it.second;
 
 		object->m_isDestroyed = true;
 
@@ -97,16 +97,17 @@ GameObjectsSequentialView GameWorld::all()
 
 void GameWorld::cancelEventsListening(BaseEventsListener * listener)
 {
-	for (auto&[typeId, listeners] : m_eventsListeners) {
-		listeners.erase(std::remove(listeners.begin(), listeners.end(), listener), listeners.end());
+    for (auto& it : m_eventsListeners) {
+        std::vector<BaseEventsListener*>& listeners = it.second;
+        listeners.erase(std::remove(listeners.begin(), listeners.end(), listener), listeners.end());
 	}
 }
 
 void GameWorld::removeDestroyedObjects() {
 	std::for_each(m_gameObjects.begin(), m_gameObjects.end(), [](GameObject*& obj)  {
 		if (obj->isDestroyed()) {
-			for (auto const&[componentTypeId, componentInstance] : obj->m_components)
-				delete componentInstance;
+            for (auto& it : obj->m_components)
+                delete it.second;
 
 			delete obj;
 			obj = nullptr;
