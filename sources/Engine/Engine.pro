@@ -21,6 +21,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Engine.cpp \
     Modules/Graphics/GraphicsSystem.cpp \
+    Modules/Math/matrix3.cpp \
+    Modules/Math/matrix4.cpp \
+    Modules/Math/vector2.cpp \
+    Modules/Math/vector3.cpp \
+    Modules/Math/vector4.cpp \
     Modules/Platform/ViewportWidget.cpp \
     Modules/ECS/BaseComponentInstance.cpp \
     Modules/ECS/GameObject.cpp \
@@ -32,6 +37,11 @@ SOURCES += \
 HEADERS += \
     Engine.h \
     Modules/Graphics/GraphicsSystem.h \
+    Modules/Math/matrix3.h \
+    Modules/Math/matrix4.h \
+    Modules/Math/vector2.h \
+    Modules/Math/vector3.h \
+    Modules/Math/vector4.h \
     Modules/Platform/ViewportWidget.h \
     Modules/ECS/BaseComponentInstance.h \
     Modules/ECS/BaseEventsListener.h \
