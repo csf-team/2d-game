@@ -21,6 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Engine.cpp \
     Modules/Graphics/GraphicsSystem.cpp \
+    Modules/Input/InputSystem.cpp \
     Modules/Math/matrix3.cpp \
     Modules/Math/matrix4.cpp \
     Modules/Math/vector2.cpp \
@@ -37,6 +38,7 @@ SOURCES += \
 HEADERS += \
     Engine.h \
     Modules/Graphics/GraphicsSystem.h \
+    Modules/Input/InputSystem.h \
     Modules/Math/matrix3.h \
     Modules/Math/matrix4.h \
     Modules/Math/vector2.h \

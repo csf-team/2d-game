@@ -6,7 +6,10 @@ BaseGameApplication::BaseGameApplication(int argc, char* argv[])
     : m_qtApp(argc, argv),
       m_mainWindow(nullptr),
       m_gameLoopTimer(nullptr),
-      m_glDebugLogger(nullptr)
+      m_glDebugLogger(nullptr),
+      m_gameWorld(nullptr),
+      m_graphicsSystem(nullptr),
+      m_inputSystem(nullptr)
 {
     QSurfaceFormat format;
     format.setDepthBufferSize(24);
@@ -89,6 +92,7 @@ void BaseGameApplication::onTimerTick()
 
 void BaseGameApplication::performInitialize()
 {
+    // Initialize OpenGL
     m_glDebugLogger = new QOpenGLDebugLogger(m_mainWindow);
     m_glDebugLogger->initialize();
 
@@ -98,23 +102,75 @@ void BaseGameApplication::performInitialize()
 
     m_glDebugLogger->startLogging();
 
+    // Initialize ECS
+    m_gameWorld = new GameWorld();
+
+    m_graphicsSystem = new GraphicsSystem(getMainWindow()->getViewportWidget()->context());
+    m_gameWorld->addGameSystem(m_graphicsSystem);
+
+    m_inputSystem = new InputSystem();
+    m_gameWorld->addGameSystem(m_inputSystem);
+
+    performInputSystemInitialize();
+
+    // Initialize game
     initialize();
+}
+
+void BaseGameApplication::performInputSystemInitialize()
+{
+    QObject::connect(m_mainWindow, &MainWindow::keyDown, [=](Qt::Key key) {
+        m_inputSystem->notifyKeyDown(key);
+    });
+
+    QObject::connect(m_mainWindow, &MainWindow::keyUp, [=](Qt::Key key) {
+        m_inputSystem->notifyKeyUp(key);
+    });
+
+    QObject::connect(m_mainWindow, &MainWindow::mouseButtonUp, [=](Qt::MouseButton button) {
+        m_inputSystem->notifyMouseButtonUp(button);
+    });
+
+    QObject::connect(m_mainWindow, &MainWindow::mouseButtonDown, [=](Qt::MouseButton button) {
+        m_inputSystem->notifyMouseButtonDown(button);
+    });
+
+    QObject::connect(m_mainWindow, &MainWindow::mouseMove, [=](QPoint position) {
+        m_inputSystem->notifyMouseMove(position);
+    });
 }
 
 void BaseGameApplication::performShutdown()
 {
+    // Stop game loop
     this->m_gameLoopTimer->stop();
+
+    // Shutdown game
     shutdown();
+
+    // Shutdown ECS
+    delete m_gameWorld;
+    m_gameWorld = nullptr;
+
+    delete m_inputSystem;
+    m_inputSystem = nullptr;
+
+    delete m_graphicsSystem;
+    m_graphicsSystem = nullptr;
 }
 
 void BaseGameApplication::performUpdate(float delta)
 {
     m_mainWindow->getViewportWidget()->makeCurrent();
+
+    m_gameWorld->update(delta);
     update(delta);
+
     m_mainWindow->getViewportWidget()->doneCurrent();
 }
 
 void BaseGameApplication::performRender()
 {
+    m_gameWorld->render();
     render();
 }

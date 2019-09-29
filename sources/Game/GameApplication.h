@@ -2,9 +2,6 @@
 
 #include <memory>
 
-#include <Engine/Modules/ECS/ECS.h>
-#include <Engine/Modules/Graphics/GraphicsSystem.h>
-
 #include "Core/Platform/BaseGameApplication.h"
 
 class GameApplication : public BaseGameApplication
@@ -20,6 +17,4 @@ public:
     void render() override;
 
 private:
-    GameWorld* m_gameWorld;
-    GraphicsSystem* m_graphicsSystem;
 };

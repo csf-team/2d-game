@@ -5,6 +5,10 @@
 #include <QElapsedTimer>
 #include <QOpenGLDebugLogger>
 
+#include <Engine/Modules/ECS/ECS.h>
+#include <Engine/Modules/Graphics/GraphicsSystem.h>
+#include <Engine/Modules/Input/InputSystem.h>
+
 #include "MainWindow.h"
 
 class BaseGameApplication
@@ -28,6 +32,8 @@ private:
     void onTimerTick();
 
     void performInitialize();
+    void performInputSystemInitialize();
+
     void performShutdown();
 
     void performUpdate(float delta);
@@ -42,5 +48,9 @@ private:
     QElapsedTimer m_updateTimer;
 
     QOpenGLDebugLogger* m_glDebugLogger;
+
+    GameWorld* m_gameWorld;
+    GraphicsSystem* m_graphicsSystem;
+    InputSystem* m_inputSystem;
 };
 
