@@ -8,4 +8,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(../../sources/Engine/Modules/Math/Math.pri)
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+        testsmatrix.cpp \
+        testsvector.cpp
+
+HEADERS += \
+    testsmatrix.h \
+    testsvector.h
