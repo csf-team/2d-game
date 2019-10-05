@@ -52,5 +52,6 @@ private:
     GameWorld* m_gameWorld;
     GraphicsSystem* m_graphicsSystem;
     InputSystem* m_inputSystem;
+
 };
 
